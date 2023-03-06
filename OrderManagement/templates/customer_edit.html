@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+{% block content %}
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title"><span class="glyphicon glyphicon-th-list"></span>
+				&nbsp;&nbsp;客户{{cid}}</h3>
+		</div>
+		<div class="panel-body">
+			<form method="post" novalidate>
+				{% csrf_token %}
+				{% for field in form %}
+					{{ field }}
+					<span style="color: red">{{ field.errors.0 }}</span>
+				{% endfor %}
+				<div class="text-right">
+					<div class="btn btn-primary" onclick="javascript:window.location.href='/customer/main/'">
+						<span class="glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;返回&nbsp;
+					</div>
+					<div class="btn btn-warning" id="edit">
+						<span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;开启编辑&nbsp;
+					</div>
+					<button type="submit" class="btn btn-success" id="save">
+						<div class="glyphicon glyphicon-ok"></div>&nbsp;&nbsp;保存并关闭&nbsp;
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+{% block script %}
+	<script>
+		var save = document.getElementById("save");
+		save.style.display = "none";
+		var inputs = document.getElementsByClassName("form-control");
+		for(i = 0; i < inputs.length; ++i) {
+			inputs[i].setAttribute("readonly", true);
+		}
+		inputs[8].style.display = "none";
+
+		var edit = document.getElementById("edit");
+		edit.onclick = function $() {
+			save.style.display = "";
+			inputs[8].style.display = "";
+			for(i = 0; i < inputs.length; ++i) {
+				if (i != 0) {
+					inputs[i].removeAttribute("readonly");
+				}
+			}
+		}
+ 	</script>
+{% endblock %}

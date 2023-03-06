@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+{% block content %}
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-list-alt"></span>
+				&nbsp;&nbsp;我创建的订单
+			</h3>
+		</div>
+		<div class="panel-body">
+			<form method="post" novalidate>
+				{% csrf_token %}
+				<div class="col-xs-11">
+					<input class="form-control" placeholder="单号查找" style="margin-right: 15px" name="search">
+				</div>
+				<button class="btn btn-primary" id="search" type="submit">
+					<span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;搜索
+				</button>
+			</form>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>订单编号</th>
+					<th>订货人</th>
+					<th>日期</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for order in orders %}
+				<tr>
+					<td></td>
+					<td>{{order.oid}}</td>
+					<td>{{order.customer}}</td>
+					<td>{{order.date}}</td>
+					<td>
+						<a class="btn btn-primary btn-xs" href="/order/review/{{order.oid}}/">
+							<span class="glyphicon glyphicon-search"></span>&nbsp;查看
+						</a>
+						<a class="btn btn-danger btn-xs" href="/order/delete/{{order.oid}}/">
+							<span class="glyphicon glyphicon-trash"></span>&nbsp;删除
+						</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="panel-footer">
+			<div class="text-right" style="color: grey">
+				*&nbsp;仅管理员有权限访问全部订单&nbsp;&nbsp;
+				<a class="btn btn-warning" href="#">
+					<div class="glyphicon glyphicon-expand"></div>
+					&nbsp;访问全部订单
+				</a>
+				<a class="btn btn-success" href="/order/create/">
+					<span class="glyphicon glyphicon-plus-sign"></span>
+					&nbsp;新建订单
+				</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}

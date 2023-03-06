@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% block style %}
+  .account {
+    width: 400px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    box-shadow: 5px 5px 20px #aaa;
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    padding: 20px 40px;
+  }
+
+  .account h2 {
+    margin-top: 10px;
+    text-align: center;
+  }
+{% endblock %}
+{% block content %}
+  <div class="account">
+      <h2 style="margin-bottom: 30px">登录</h2>
+      <form method="post" novalidate>
+          {% csrf_token %}
+          <div class="form-group">
+              {{ form.pid }}
+              <span style="color: red;">{{ form.unm.errors.0 }}</span>
+          </div>
+          <div class="form-group">
+              {{ form.pwd }}
+              <span style="color: red;">{{ form.pwd.errors.0 }}</span>
+          </div>
+          <div class="text-right">
+            <button type="submit" class="btn btn-primary">
+              <div class="glyphicon glyphicon-log-in"></div>&nbsp;&nbsp;登录&nbsp;
+            </button>
+          </div>
+      </form>
+  </div>
+{% endblock %}

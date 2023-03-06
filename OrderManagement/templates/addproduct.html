@@ -1,0 +1,89 @@
+{% extends 'layout.html' %}
+{% block style %}
+	.note {
+		color: grey;
+	}
+{% endblock %}
+{% block content %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span class="glyphicon glyphicon-th-list"></span>
+                &nbsp;&nbsp;订单{{oid}}</h3>
+        </div>
+        <div class="panel-body">
+            <form id="order">
+                {% for field in order %}
+                  {{ field }}
+                {% endfor %}
+            </form>
+        </div>
+    </div>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-th-list"></span>
+				&nbsp;&nbsp;订单中的商品
+			</h3>
+		</div>
+		<div class="panel-body" id="includePanel">
+			{% for include in includes %}
+				<span class="note">- 商品{{forloop.counter}}</span>
+				{% for product, info in include.items %}
+					<form class="form-group">
+						<input value={{product.name}} type="text" class="form-control" style="margin-bottom: 15px"/>
+						<input value={{info.0}} type="text" class="form-control" style="margin-bottom: 15px"/>
+                        <input value={{info.1}} type="text" class="form-control" style="margin-bottom: 15px"/>
+					</form>
+				{% endfor %}
+			{% endfor %}
+		</div>
+	</div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span class="glyphicon glyphicon-th-list"></span>
+                &nbsp;&nbsp;添加更多商品</h3>
+        </div>
+        <div class="panel-body">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    {{ field }}
+                    <span style="color: red">{{ field.errors.0 }}</span>
+                {% endfor %}
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">
+                        <div class="glyphicon glyphicon-chevron-right"></div>&nbsp;&nbsp;继续添加&nbsp;
+                    </button>
+                    <button type="submit" class="btn btn-primary" name="done">
+                        <div class="glyphicon glyphicon-ok"></div>&nbsp;&nbsp;完成&nbsp;
+                    </button>
+                <div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        var selects = document.getElementsByTagName("select");
+        for(i = 0; i < selects.length; ++i) {
+            if(selects[i].id == "id_oid") {
+                selects[i].value = {{oid}};
+                selects[i].style.display = "none";
+            }
+        }
+        var order = document.getElementById("order");
+        var order_inputs = order.getElementsByTagName("input");
+        var order_selects = order.getElementsByTagName("select");
+        for(i = 0; i < order_inputs.length; ++i) {
+            order_inputs[i].setAttribute("readonly", true);
+        }
+        for(i = 0; i < order_selects.length; ++i) {
+            order_selects[i].style.display = "none";
+        }
+        var includePanel = document.getElementById("includePanel");
+        var includes = includePanel.getElementsByTagName("input");
+        for(i = 0; i < includes.length; ++i) {
+            includes[i].setAttribute("readonly", true);
+        }
+    </script>
+{% endblock %}

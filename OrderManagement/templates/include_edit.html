@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+{% block style %}
+	.note {
+		color: grey;
+        margin-bottom: 10px;
+	}
+{% endblock %}
+{% block content %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;订单{{oid}}&emsp;客户：{{customer}}
+            </h3>
+        </div>
+        <div class="panel-body">
+            <form novalidate>
+                {% for field in order %}
+                    {{ field }}
+                    <span style="color: red">{{ field.errors.0 }}</span>
+                {% endfor %}
+            </form>
+        </div>
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <span class="glyphicon glyphicon-th-list"></span>
+                &nbsp;&nbsp;订单中的商品
+            </h3>
+        </div>
+        <div class="panel-body">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {% for field in include %}
+                    {{ field }}
+                    <span style="color: red">{{ field.errors.0 }}</span>
+                {% endfor %}
+                <div class="text-right">
+                    <button type="submit" class="btn btn-success">
+                        <div class="glyphicon glyphicon-ok"></div>&nbsp;&nbsp;保存并关闭&nbsp;
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+	<script>
+        var inputs = document.getElementsByClassName("form-control");
+        for(i = 0; i < inputs.length; ++i) {
+            if(i < 11) {
+			    inputs[i].setAttribute("readonly", true);
+            }
+        }
+        var selects = document.getElementsByTagName("select");
+        for(i = 0; i < selects.length; ++i) {
+            if(i == 0 || i == 4 || i == 5) {
+                selects[i].style.display="none";
+            }
+        }
+    </script>
+{% endblock %}

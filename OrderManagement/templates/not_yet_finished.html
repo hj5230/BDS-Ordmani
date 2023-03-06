@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block style %}
+    .title {
+        margin-top: 200px;
+        color: #003377;
+        text-align: center;
+        font-family: "SimHEi";
+        font-weight: bolder;
+    }
+{% endblock %}
+{% block content %}
+    <h1 class="title">本页尚未完成</h1>
+    <div align="center">
+        <a class="btn btn-primary" href="/dashboard/">返回主菜单</a>
+        <!--<btn class="btn btn-danger" id="search">查找<btn>-->
+    </div>
+{% endblock %}
+<!--
+{% block script %}
+    <script>
+        var e = jQuery.Event("keydown");
+        e.keyCode=70,e.ctrlKey=true;
+        var search = document.getElementById("search");
+        search.onclick = function() {
+            $(window).trigger(e);
+        }
+    </script>
+{% endblock %}-->

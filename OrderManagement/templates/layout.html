@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>订单管理系统</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <style>
+        .navbar {
+          border-radius: 0;
+        }
+        {% block style %}{% endblock %}
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/dashboard/">订单管理系统</a>
+          </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="javascript: void(0)"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;通知信息</a></li>
+            <li><a href="/product/main/"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;产品列表</a></li>
+            <li><a href="/customer/main/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;客户管理</a></li>
+            <li><a href="/order/my/"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;零售订单</a></li>
+            <li><a href="javascript: void(0)"><span class="glyphicon glyphicon-briefcase"></span>&nbsp;&nbsp;工程项目</a></li>
+            <!-- <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多 <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </li> -->
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                {{ request.session.user.name }} <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/profile/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;&nbsp;个人资料</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/logout/"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;注销</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+    </nav>
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap.min.js' %}"></script>
+    {% block script %}{% endblock %}
+</body>
+</html>

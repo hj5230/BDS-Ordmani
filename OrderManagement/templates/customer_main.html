@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+{% block content %}
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+					<span class="glyphicon glyphicon-user"></span>
+					&nbsp;&nbsp;全部客户
+			</h3>
+		</div>
+		<div class="panel-body">
+			<form method="post" novalidate>
+				{% csrf_token %}
+				<div class="col-xs-11">
+					<input class="form-control" placeholder="模糊查找" style="margin-right: 15px" name="search">
+				</div>
+				<button class="btn btn-primary" id="search" type="submit">
+					<span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;搜索
+				</button>
+			</form>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+          <th></th>
+					<th>客户编号</th>
+					<th>姓名</th>
+          <th>电话</th>
+					<th>负责经理</th>
+          <th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for customer in customers %}
+				<tr>
+          <td></td>
+					<td>{{customer.cid}}</td>
+					<td>{{customer.name}}</td>
+					<td>{{customer.phone}}</td>
+          <td>{{customer.correspond}}</td>
+					<td>
+						<a class="btn btn-success btn-xs" href="/order/create/{{customer.cid}}/">
+							<span class="glyphicon glyphicon-th-list"></span>&nbsp;创建订单
+						</a>
+						<a class="btn btn-primary btn-xs" href="/customer/edit/{{customer.cid}}/">
+							<span class="glyphicon glyphicon-search"></span>&nbsp;查看
+						</a>
+						<a class="btn btn-danger btn-xs" href="/customer/delete/{{customer.cid}}/">
+							<span class="glyphicon glyphicon-trash"></span>&nbsp;删除
+						</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="panel-footer">
+			<div class="text-right">
+				<a class="btn btn-success" href="/customer/add/">
+					<span class="glyphicon glyphicon-plus-sign"></span>
+					&nbsp;新建客户
+				</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}

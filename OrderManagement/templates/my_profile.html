@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% block style %}
+  .note {
+    color: grey;
+    margin-left: 15px;
+  }
+  .info {
+    margin-left: 20px;
+  }
+{% endblock %}
+{% block content %}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">我的信息</h3>
+    </div>
+    <div class="panel-body">
+      <h3>
+        <span class="label label-default">PID
+          <span class="info">{{request.session.user.pid}}</span>
+        </span>
+      </h3>
+      <h3>
+        <span class="label label-primary">姓名
+          <span class="info">{{request.session.user.name}}</span>
+        </span>
+      </h3>
+      <h3>
+        <span class="label label-primary">岗位
+          <span class="info">{{pos}}</span>
+        </span>
+      </h3>
+      <h3>
+        <span class="label label-danger">密码
+          <span class="info">******</span>
+        </span>
+      </h3>
+    </div>
+      <span class="note">* PID是每位员工的固定编号, 由系统自动分配。</span>
+    <div class="panel-footer">
+      <div class="text-right">
+        <a class="btn btn-primary" href="javascript: void(0)">更改信息</a>
+      <div>
+    </div>
+  </div>
+{% endblock %}
